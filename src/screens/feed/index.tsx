@@ -1,4 +1,4 @@
-import { Alert, View, Text, FlatList, RefreshControl, Button, TouchableOpacity } from "react-native";
+import { Alert, View, Text, FlatList, RefreshControl, Button, TouchableOpacity, ActivityIndicator } from "react-native";
 import api from "../../services/api";
 import { useEffect, useState } from "react";
 import { IPost } from "../../interfaces/Post";
@@ -29,6 +29,14 @@ export default function Feed({navigation}:{navigation:any}) {
     useEffect(() => {
         loadFeed()
     }, [page])
+
+    if(!posts) {
+        return (
+            <View className="items-center justify-center flex-1">
+                <ActivityIndicator size="large" color="#000000" />
+            </View>
+        )
+    }
 
     return (
         <View className="bg-white">
