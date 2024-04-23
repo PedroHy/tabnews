@@ -1,10 +1,11 @@
-import { Alert, View, Text, FlatList, RefreshControl } from "react-native";
+import { Alert, View, Text, FlatList, RefreshControl, Button, TouchableOpacity } from "react-native";
 import api from "../../services/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IPost } from "../../interfaces/Post";
 import PostCard from "../../components/postCard";
+import Header from "../../components/header";
 
-export default function Feed() {
+export default function Feed({navigation}:{navigation:any}) {
 
     const [posts, setPosts] = useState<Array<IPost>>([]);
     const [page, setPage] = useState(1);
@@ -25,19 +26,31 @@ export default function Feed() {
         loadFeed().then(() => setRefreshing(false))
     };
 
-    useState(() => {
+    useEffect(() => {
         loadFeed()
-    })
+    }, [page])
 
     return (
         <View className="bg-white">
-            <FlatList
-                data={posts}
-                renderItem={({ item, index }) => <PostCard key={item.id} post={item} index={index} />}
-                refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                }
-            />
+                <FlatList
+                    data={posts}
+                    renderItem={({ item, index }) => <PostCard onPress={()=>navigation.navigate('Post', {user: item.owner_username, slug: item.slug})} key={item.id} post={item} index={page==1?(index+1):(index+1)+((page-1)*30)} />}
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                    }
+                    ListHeaderComponent={Header}
+                    ListFooterComponent={()=>{
+                        return(
+                            <View className="h-32 flex-row justify-center gap-4 pt-6">
+                                <TouchableOpacity disabled={page==1?true:false} onPress={()=>setPage(page-1)}>
+                                    <Text className={page!=1?"text-lg text-blue-500":"text-zinc-500 text-lg"}>&lt; Anterior</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={()=>setPage(page+1)}>
+                                    <Text className="text-lg text-blue-500">Próximo &gt;</Text> 
+                                </TouchableOpacity>
+                            </View>)
+                    }}
+                />
         </View>
     )
 }

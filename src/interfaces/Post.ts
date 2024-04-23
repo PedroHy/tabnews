@@ -3,6 +3,7 @@ export interface IPost{
     owner_id: string,
     parent_id: string,
     slug: string,
+    body?: string,
     title: string,
     status: string,
     source_url: string,
