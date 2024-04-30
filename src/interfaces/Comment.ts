@@ -15,6 +15,6 @@ export default interface IComment{
     tabcoins: number,
     tabcoins_credit: number,
     tabcoins_debit: number,
-    children: [],
+    children: [IComment],
     children_deep_count: number
 }
