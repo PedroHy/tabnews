@@ -3,5 +3,8 @@ import { IPost } from "../../interfaces/Post";
 export interface IFeedViewModel{
     posts: Array<IPost>,
     page: number,
-    loadFeed: ()=> void
+    isRefreshing: boolean,
+    onRefresh: ()=> void
+    nextPage: ()=> void
+    previousPage: ()=> void
 }
