@@ -1,8 +1,7 @@
 
 
-export default function useUserModelView({route}:{route:any}){
+export default function useUserModelView(){
     //get user id
-    const { userId } = route.params;
 
     //get userInfos
 

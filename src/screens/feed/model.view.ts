@@ -8,7 +8,6 @@ export default function useFeedModelView(){
 
     const [posts, setPosts] = useState<Array<IPost>>([]);
     const [page, setPage] = useState(1);
-    const [isRefreshing, setIsRefreshing] = useState(false);
 
     const loadFeed = async () => {
         try {
@@ -19,22 +18,11 @@ export default function useFeedModelView(){
         }
     }
 
-    const onRefresh = () => {
-        setIsRefreshing(true);
-        loadFeed().then(() => setIsRefreshing(false))
-    };
-
-    const nextPage = ()=> setPage(page+1);
-    const previousPage = ()=> setPage(page-1);
-
-    useEffect(() => {loadFeed()}, [page])
+    useEffect(()=> { loadFeed() }, [page])
 
     return {
         posts,
         page,
-        isRefreshing,
-        nextPage,
-        previousPage,
-        onRefresh
+        loadFeed
     }
 }
