@@ -1,21 +1,24 @@
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import Markdown from "react-native-markdown-display";
 import EconomyProps from "../../../components/economyProps";
 
 
-export default function UserProfile(){
+export default function UserProfile({user}:{user: IUser}){
     return(
-        <View className="py-2">
-            <EconomyProps tabcoins={12} tabcash={5} />
+        <ScrollView className="py-2 h-4/5">
+            <EconomyProps tabcoins={user.tabcoins} tabcash={user.tabcash} />
             <Text className="text-lg py-2">Membro a x tempo</Text>
+            
+            {user.description?
             <View>
-                <Text>Descrição</Text>
-                <View>
+                <Text className="font-bold text-lg">Descrição</Text>
+                <View className="border-2 border-zinc-300 p-1 pb-6">
                     <Markdown>
-                        ""
+                        {user.description}
                     </Markdown>
                 </View>
             </View>
-        </View>
+            :null}
+        </ScrollView>
     )
 }

@@ -7,22 +7,24 @@ import { PostComponent } from "./components/postComponent";
 import AnswerCard from "../../components/answerCard";
 
 
-export default function PostView({ route }:{ route: any}){
+export default function PostView({ route }: { route: any }) {
 
     const { post, comments } = usePostModelView({ route });
 
     return (
         <SafeAreaView className="relative">
-            <Header />
-            <View className="pt-24">
-                {!post?<LoadComponent />:
-                <ScrollView>
-                    <PostComponent post={post} />
-                    <View className="items-center"><AnswerCard /></View>
-                    {comments.map((comment)=>{
-                        return <Comment key={comment.id} comment={comment} />
-                    })}
-                </ScrollView>}
+            <View>
+                <Header />
+                <View className="pt-24">
+                    {!post ? <LoadComponent /> :
+                        <ScrollView>
+                            <PostComponent post={post} />
+                            <View className="items-center"><AnswerCard /></View>
+                            {comments.map((comment) => {
+                                return <Comment key={comment.id} comment={comment} />
+                            })}
+                        </ScrollView>}
+                </View>
             </View>
         </SafeAreaView>
     )
