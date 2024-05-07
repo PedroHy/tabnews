@@ -9,7 +9,7 @@ import LoadComponent from "../../components/loadComponent";
 
 export default function UserView({navigation, route}:{navigation:any, route:any}){
 
-    const { user } = useUserModelView({route});
+    const { user, comments, posts } = useUserModelView({route});
 
     return ( 
         <SafeAreaView>
@@ -20,8 +20,8 @@ export default function UserView({navigation, route}:{navigation:any, route:any}
                     <Text className="text-3xl font-semibold py-6">{user.username}</Text>
                     <Tab.Root>
                         <Tab.View title='Perfil' component={<UserProfile user={user} />}/>
-                        <Tab.View title='Posts' component={<UserPosts navigation={navigation} />}/>
-                        <Tab.View title='Comentários' component={<UserComments />}/>
+                        {posts?<Tab.View title='Posts' component={<UserPosts posts={posts} navigation={navigation} />}/>: null}
+                        {comments?<Tab.View title='Comentários' component={<UserComments comments={comments}/>}/>:null}
                     </Tab.Root>
                 </View>
                 }

@@ -7,7 +7,6 @@ export default function UserProfile({user}:{user: IUser}){
     return(
         <ScrollView className="py-2 h-4/5">
             <EconomyProps tabcoins={user.tabcoins} tabcash={user.tabcash} />
-            <Text className="text-lg py-2">Membro a x tempo</Text>
             
             {user.description?
             <View>

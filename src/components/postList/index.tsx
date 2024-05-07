@@ -19,6 +19,7 @@ export default function PostList({posts, navigation, load}:{posts:IPost[], navig
 
     return(
         <FlatList
+            className="h-5/6"
             data={posts}
             renderItem={({ item, index }) => <PostCard goToUserProfile={()=>navigation.navigate('User', {userId: ''})} onPress={()=>navigation.navigate('Post', {user: item.owner_username, slug: item.slug})} key={item.id} post={item} index={page==1?(index+1):(index+1)+((page-1)*30)} />}
             refreshControl={ <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} /> }
